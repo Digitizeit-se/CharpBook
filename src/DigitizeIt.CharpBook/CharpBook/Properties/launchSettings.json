@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CharpBook": {
+      "commandName": "Project",
+      "commandLineArgs": "serve"
+    }
+  }
+}
