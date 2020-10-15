@@ -1,10 +1,14 @@
 ﻿using System;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 //temp
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing.Matching;
+using Microsoft.Extensions.Hosting;
 
 //
 
@@ -41,14 +45,27 @@ namespace CharpBook
 
                 //Need to start a worker here to monitor src directory for changes
 
-                //Run kastrel ans startup.cs
+                //TODO start backgroundservice from here
+                var bs = new BackGroundWebService();
+                CancellationTokenSource ts = new CancellationTokenSource();
+                var token = ts.Token;
+                var task = Task.Run(() => bs.StartAsync(token));
+
+                while (true)
+                {
+                    Thread.Sleep(1000);
+                    bs.StopAsync(token);
+                }
+                /*
+                //Run Kestrel and startup.cs
                 Console.WriteLine("Serving book in kastrel.");
                 Console.WriteLine("");
                 var host = new WebHostBuilder()
                     .UseKestrel()
+                    .UseContentRoot(Directory.GetCurrentDirectory() + "//book//")
                     .UseStartup<Startup>()
                     .Build();
-                host.Run();
+                host.Run();*/
             }
         }
     }

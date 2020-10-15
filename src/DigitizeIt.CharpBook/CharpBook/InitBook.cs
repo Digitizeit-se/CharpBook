@@ -14,6 +14,7 @@ namespace CharpBook
             Directory.CreateDirectory("src");
             File.Create(Path.Combine(path + "//src//", "TableOfContents.md"));
             File.Create(Path.Combine(path + "//src//", "FirstChapter.md"));
+            File.Create(Path.Combine(path + "//book//", "index.html"));
         }
 
         //TableOfContents;
